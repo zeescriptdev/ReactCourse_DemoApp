@@ -1,8 +1,8 @@
 import "./App.css";
-import FetchAPIuseEffect from "./src/Examples/FetchAPIuseEffect";
+import { Parent } from "./src/Examples/PropDrillingProblem";
 
 function App() {
-  return <FetchAPIuseEffect/>
+  return <Parent />
 }
 
 export default App;

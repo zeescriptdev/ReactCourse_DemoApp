@@ -1,36 +1,22 @@
-import { createContext } from "react";
 import "./App.css";
-import ContextAPI from "./src/components/ContextAPI";
-import { useWindowWidth } from "./src/hooks/useWindowWidth";
-import { useFetch } from "./src/hooks/useFetch";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { About, Contact, Home, NotFound } from "./src/Examples/ReactRouter";
 
-export const UserContext = createContext({
-  name: "John",
-  age: 20
-});
-function App() {
-  // const width = useWindowWidth();
-  const { data, loading, error } = useFetch("https://jsonplaceholder.typicode.com/users");
-
-  if(loading) return <div>Loading...</div>;
-  if(error) return <div>Error: {error}</div>;
-  
+function App() {  
   return <>
-  <UserContext.Provider value={{ name: "John", age: 20 }}>
-    {/* <ContextAPI /> */}
-    {/* <h2>Window width: {width}px</h2> */}
-    <h1>Users length: {data?.length}</h1>
-    {
-      data?.map((user: any) => (
-        <div key={user.id}>
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
-          <p>{user.phone}</p>
-          <p>{user.website}</p>
-        </div>
-      ))
-    }
-  </UserContext.Provider>
+    <BrowserRouter>
+  {/* <nav>
+    <Link to="/">Home</Link><br />
+    <Link to="/about">About</Link><br />
+    <Link to="/contact">Contact</Link>
+  </nav> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   </>
   
 }

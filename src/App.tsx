@@ -1,23 +1,35 @@
 import "./App.css";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { NotFound, Product, ProductDetails } from "./src/Examples/ReactRouter";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Analytics, Dashboard, Profile, Settings } from "./src/Examples/Dashboard";
 
-function App() {  
-  return <>
+export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const isLoggedIn = false;
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
+  return children;
+};
+
+function App() {
+  return (
     <BrowserRouter>
-  {/* <nav>
-    <Link to="/user/1">User 1</Link><br />
-    <Link to="/user/2">User 2</Link><br />
-    <Link to="/user/3">User 3</Link>
-  </nav> */}
       <Routes>
-        <Route path="/products" element={<Product />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/login" element={<h2>Login Page</h2>} />
+        <Route
+          path="/dashboard"
+          element={
+          <ProtectedRoute>
+            <Dashboard/>
+          </ProtectedRoute>
+          }
+        >
+          <Route path="profile" element={<Profile/>} />
+          <Route path="settings" element={<Settings/>} />
+          <Route path="analytics" element={<Analytics/>} />
+        </Route>
       </Routes>
     </BrowserRouter>
-  </>
-  
+  );
 }
 
 export default App;

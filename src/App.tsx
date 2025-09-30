@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { Suspense, lazy } from "react";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import Counter from "./src/Examples/PerformaceCounter";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("");
+  const Dashboard = lazy(() => import("./src/Examples/Dashboard").then(module => ({ default: module.Dashboard })));
+  
   return (
-    <div>
-      <Counter count={count} />
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-    </div>
+    <BrowserRouter>
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Dashboard />
+        </Suspense>
+      </div>
+    </BrowserRouter>
   );
 }
 

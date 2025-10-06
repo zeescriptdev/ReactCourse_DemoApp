@@ -1,18 +1,21 @@
-import { Suspense, lazy } from "react";
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+import BuggyComponent from "./src/components/BuggyComponent";
+import ErrorBoundary from "./src/components/ErrorBoundary";
 
 function App() {
-  const Dashboard = lazy(() => import("./src/Examples/Dashboard").then(module => ({ default: module.Dashboard })));
   
   return (
-    <BrowserRouter>
-      <div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Dashboard />
-        </Suspense>
-      </div>
-    </BrowserRouter>
+    <div>
+      <ErrorBoundary>
+        {/* <div>
+          <h1>Hello</h1>
+          <button onClick={() => {
+            throw new Error("Error");
+          }}>Throw Error</button>
+        </div> */}
+        <BuggyComponent />
+      </ErrorBoundary>
+    </div>
   );
 }
 

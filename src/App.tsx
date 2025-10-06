@@ -1,20 +1,25 @@
+import React, { Suspense } from "react";
 import "./App.css";
-import BuggyComponent from "./src/components/BuggyComponent";
-import ErrorBoundary from "./src/components/ErrorBoundary";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 function App() {
+  const Profile = React.lazy(() => import("./src/Examples/Dashboard").then(module => ({ default: module.Profile })));
+  const Settings = React.lazy(() => import("./src/Examples/Dashboard").then(module => ({ default: module.Settings })));
   
   return (
     <div>
-      <ErrorBoundary>
-        {/* <div>
-          <h1>Hello</h1>
-          <button onClick={() => {
-            throw new Error("Error");
-          }}>Throw Error</button>
-        </div> */}
-        <BuggyComponent />
-      </ErrorBoundary>
+      <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/" element={<div>Home
+            <Link to="/profile">Profile</Link>
+            <Link to="/settings">Settings</Link>
+          </div>} />
+        </Routes>
+      </Suspense>
+      </BrowserRouter>
     </div>
   );
 }

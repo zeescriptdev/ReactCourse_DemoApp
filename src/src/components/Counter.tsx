@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const Counter = () => {
-  const [name, setName] = useState('Zeeshan');
-  const [age, setAge] = useState(25);
-
+const [count, setCount] = useState(0);
   return <>
-  <div> {name} is {age} years old</div>
-  <button onClick={() => setAge(age + 1)}>Birthday!</button>
+  <div> 
+    <p>Count : {count}</p>
+  </div>
+  <button onClick={() => setCount(count + 1)}>Increment</button>
   </>
 };
 

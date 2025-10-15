@@ -1,12 +1,15 @@
+import { Provider } from "react-redux";
+import { store } from "./src/store/store";
 import "./App.css";
-import ExternalLib from "./src/Examples/ExternalLib";
+import Counter from "./src/components/Counter";
 
 function App() {
-  
   return (
-    <div>
-      <ExternalLib />
-    </div>
+    <Provider store={store}>
+      <div>
+        <Counter />
+      </div>
+    </Provider>
   );
 }
 

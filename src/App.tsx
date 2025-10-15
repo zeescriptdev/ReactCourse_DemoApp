@@ -1,11 +1,11 @@
 import "./App.css";
-import ExternalLib from "./src/Examples/ExternalLib";
+import Counter from "./src/components/Counter";
 
 function App() {
-  
+  const user = { name: "John Doe", email: "john@example.com" };
   return (
     <div>
-      <ExternalLib />
+      <Counter user={user}/>
     </div>
   );
 }

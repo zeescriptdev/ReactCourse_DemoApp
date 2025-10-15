@@ -2,14 +2,16 @@ import { Rating } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function ExternalLib() {
-  const [users, setUsers] = useState([]);
-  console.log(users);
+function ExternalLib({version}: any) {
+  console.log("version", version);
+  const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
-      .then((response) => setUsers(response.data))
+      .then((response) => {
+        setUsers(response.data)
+      })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
